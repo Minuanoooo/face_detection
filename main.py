@@ -18,8 +18,9 @@ while True:
 
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray)
-    for i in faces:
-        cv.rectangle(frame, (50, 50), (200, 200), (0, 255, 0), 3)
+    for x, y, w, h in faces:
+        print(x, y, w, h)
+        cv.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 3)
 
     cv.imshow('frame',frame)
     if cv.waitKey(1) == ord('q'):
