@@ -1,0 +1,74 @@
+# Face Detection
+
+A small Python and OpenCV application that uses a webcam to detect faces in real time.
+
+When a face is detected, the application draws a bounding box around it and displays a label below the detected area.
+
+## How It Works
+
+The application captures video from the webcam and processes each frame:
+
+```text
+Webcam
+  ↓
+Frame
+  ↓
+Grayscale
+  ↓
+Haar Cascade
+  ↓
+Face Detection
+  ↓
+Bounding Box + Label
+```
+
+Face detection is handled using a pre-trained Haar Cascade provided by OpenCV.
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Minuanoooo/face_detection.git
+cd face_detection
+```
+
+Create a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+Run the application:
+
+```bash
+python main.py
+```
+
+A window with the webcam feed will open.
+
+Press `q` to exit the application.
+
+## Requirements
+
+* Python 3
+* OpenCV 4.x
+* A working webcam
+
+## Project Structure
+
+```text
+face_detection/
+├── main.py
+├── requirements.txt
+└── README.md
+```
