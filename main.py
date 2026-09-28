@@ -19,7 +19,6 @@ while True:
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray)
     for x, y, w, h in faces:
-        print(x, y, w, h)
         cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
         cv.putText(frame,'pidor', (x, y + h + 25), cv.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2, cv.LINE_AA)
     cv.imshow('frame',frame)
