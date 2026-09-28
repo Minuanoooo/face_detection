@@ -20,8 +20,8 @@ while True:
     faces = face_cascade.detectMultiScale(gray)
     for x, y, w, h in faces:
         print(x, y, w, h)
-        cv.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 3)
-
+        cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+        cv.putText(frame,'pidor', (x, y + h + 25), cv.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2, cv.LINE_AA)
     cv.imshow('frame',frame)
     if cv.waitKey(1) == ord('q'):
         break
