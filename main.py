@@ -55,12 +55,17 @@ while True:
         pixel_x =int (x_point * width)
         pixel_y =int (y_point * height)
 
-        cv.circle(frame, (pixel_x, pixel_y), 10, (0, 0, 255), -1)
+        size = 10
+
+        top_left = (pixel_x - size, pixel_y - size)
+        bottom_right = (pixel_x + size, pixel_y + size)
+
+        cv.rectangle(frame, top_left, bottom_right, (255, 255, 255), 1)
 
     
-    for x, y, w, h in faces:
-        cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
-        cv.putText(frame,'pidor', (x, y + h + 25), cv.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2, cv.LINE_AA)
+#    for x, y, w, h in faces:
+#        cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+#        cv.putText(frame,'pidor', (x, y + h + 25), cv.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2, cv.LINE_AA)
     cv.imshow('frame',frame)
     if cv.waitKey(1) == ord('q'):
         break
