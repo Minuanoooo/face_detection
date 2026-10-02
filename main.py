@@ -40,7 +40,25 @@ while True:
     )
 
     result = landmarker.detect_for_video(image,current_time_ms)
-    print(result)
+
+    if result.hand_landmarks:
+        landmarks = result.hand_landmarks[0]
+
+        point = landmarks[8]
+
+        x_point = point.x
+        y_point = point.y
+
+        shape = frame.shape
+        height = shape[0]
+        width = shape[1]
+
+        pixel_x =int (x_point * width)
+        pixel_y =int (y_point * height)
+
+        cv.circle(frame, (pixel_x, pixel_y), 10, (0, 0, 255), -1)
+
+    
     for x, y, w, h in faces:
         cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
         cv.putText(frame,'pidor', (x, y + h + 25), cv.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2, cv.LINE_AA)
