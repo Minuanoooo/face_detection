@@ -12,6 +12,7 @@ base_options = mp.tasks.BaseOptions(
 options = mp.tasks.vision.HandLandmarkerOptions(
     base_options=base_options,
     num_hands=1,
+    running_mode = mp.tasks.vision.RunningMode.VIDEO
 )
 
 landmarker = mp.tasks.vision.HandLandmarker.create_from_options(options)
