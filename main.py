@@ -11,7 +11,7 @@ base_options = mp.tasks.BaseOptions(
 )
 options = mp.tasks.vision.HandLandmarkerOptions(
     base_options=base_options,
-    num_hands=1,
+    num_hands=2,
     running_mode = mp.tasks.vision.RunningMode.VIDEO
 )
 
@@ -41,8 +41,7 @@ while True:
 
     result = landmarker.detect_for_video(image,current_time_ms)
 
-    if result.hand_landmarks:
-        landmarks = result.hand_landmarks[0]
+    for landmarks in result.hand_landmarks:
 
         point = landmarks[8]
 
