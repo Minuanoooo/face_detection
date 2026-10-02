@@ -1,13 +1,26 @@
 import cv2 as cv
+import mediapipe as mp
+import time
 
 face_cascade = cv.CascadeClassifier(
     cv.data.haarcascades + "haarcascade_frontalface_default.xml"
 )
 
+base_options = mp.tasks.BaseOptions(
+    model_asset_path="hand_landmarker.task"
+)
+options = mp.tasks.vision.HandLandmarkerOptions(
+    base_options=base_options,
+    num_hands=1,
+)
+
+landmarker = mp.tasks.vision.HandLandmarker.create_from_options(options)
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
+
+start_time = time.perf_counter()
 
 while True:
     ret,frame = cap.read()
@@ -15,9 +28,18 @@ while True:
     if not  ret:
         print("Can't receive frame (stream end?). Exiting ...")
         break
-
+    current_time_ms = int((time.perf_counter() - start_time) * 1000)
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    rgb_frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     faces = face_cascade.detectMultiScale(gray)
+
+    image = mp.Image(
+    image_format=mp.ImageFormat.SRGB,
+    data=rgb_frame
+    )
+
+    result = landmarker.detect_for_video(image,current_time_ms)
+    print(result)
     for x, y, w, h in faces:
         cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
         cv.putText(frame,'pidor', (x, y + h + 25), cv.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2, cv.LINE_AA)
@@ -26,3 +48,4 @@ while True:
         break
 cap.release()
 cv.destroyAllWindows()
+
