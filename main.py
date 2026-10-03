@@ -23,6 +23,11 @@ if not cap.isOpened():
 
 start_time = time.perf_counter()
 
+cv.namedWindow('frame', cv.WINDOW_NORMAL)
+cv.resizeWindow('frame', 1280, 720)
+fingers = [4,8,12,16,20]
+size = 10
+
 while True:
     ret,frame = cap.read()
 
@@ -40,27 +45,25 @@ while True:
     )
 
     result = landmarker.detect_for_video(image,current_time_ms)
+    height, width = frame.shape[:2]
 
     for landmarks in result.hand_landmarks:
+        for landmark_id in fingers:
 
-        point = landmarks[8]
+            point = landmarks[landmark_id]
 
-        x_point = point.x
-        y_point = point.y
+            x_point = point.x
+            y_point = point.y
 
-        shape = frame.shape
-        height = shape[0]
-        width = shape[1]
 
-        pixel_x =int (x_point * width)
-        pixel_y =int (y_point * height)
+            pixel_x =int (x_point * width)
+            pixel_y =int (y_point * height)
 
-        size = 10
 
-        top_left = (pixel_x - size, pixel_y - size)
-        bottom_right = (pixel_x + size, pixel_y + size)
+            top_left = (pixel_x - size, pixel_y - size)
+            bottom_right = (pixel_x + size, pixel_y + size)
 
-        cv.rectangle(frame, top_left, bottom_right, (255, 255, 255), 1)
+            cv.rectangle(frame, top_left, bottom_right, (255, 255, 255), 1)
 
     
 #    for x, y, w, h in faces:
